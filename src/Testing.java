@@ -3,7 +3,7 @@
 
 import image_to_ASCII.*;
 
-public class MyMain {
+public class Testing {
 
 	public static void main(String[] args) {
 		
