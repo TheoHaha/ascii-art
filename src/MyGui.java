@@ -1,3 +1,5 @@
+// made with windowbuilder pro
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,6 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MyGui {
 
@@ -60,18 +65,39 @@ public class MyGui {
 		filenameTextField.setColumns(25);
 		
 		JButton browseBtn = new JButton("Browse...");
+		browseBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		chooserPane.add(browseBtn, BorderLayout.EAST);
 		
 		JButton convertBtn = new JButton("Convert to ASCII");
 		mainPane.add(convertBtn);
 		
 		JPanel infoPane = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) infoPane.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
 		frmTextToAscii.getContentPane().add(infoPane, BorderLayout.CENTER);
+		infoPane.setLayout(new GridLayout(0, 1, 5, 0));
 		
-		JLabel lblNewLabel = new JLabel("Image Info:");
-		infoPane.add(lblNewLabel);
+		JLabel infoLabel = new JLabel("Image Info");
+		infoPane.add(infoLabel);
+		
+		JLabel filenameLabel = new JLabel("Filename: ");
+		infoPane.add(filenameLabel);
+		
+		JLabel widthLabel = new JLabel("Width: ");
+		infoPane.add(widthLabel);
+		
+		JLabel heightLabel = new JLabel("Height: ");
+		infoPane.add(heightLabel);
+		
+		JPanel panel = new JPanel();
+		frmTextToAscii.getContentPane().add(panel, BorderLayout.WEST);
+		
+		JPanel panel_1 = new JPanel();
+		frmTextToAscii.getContentPane().add(panel_1, BorderLayout.EAST);
+		
+		JPanel panel_2 = new JPanel();
+		frmTextToAscii.getContentPane().add(panel_2, BorderLayout.SOUTH);
 	}
 
 }
