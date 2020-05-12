@@ -4,16 +4,12 @@
 import image_to_ASCII.*;
 
 import java.io.File;
-
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 public class Testing {
 	
 	public static void main(String[] args) {
-		//TODO: Implement a JFileChooser that opens and make it work with ImageFile
-		//TODO: Implement a JFileChooser that saves and make it work with FileResult
-		
 		final JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(new JPanel());
 		
@@ -22,9 +18,9 @@ public class Testing {
 		ImageFile image1 = new ImageFile(file);
 		System.out.println(image1.getFileName());
 		
-		final JFileChooser fc2 = new JFileChooser();
 		int returnVal2 = fc.showSaveDialog(new JPanel());
 		
-		FileResult result1 = new FileResult(fc2.getSelectedFile());
+		FileResult result1 = new FileResult(fc.getSelectedFile());
+		result1.printResult(image1);
 	}
 }

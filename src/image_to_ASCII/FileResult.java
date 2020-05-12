@@ -24,12 +24,16 @@ public class FileResult {
 		this.file = file;
 	}
 	
-//	public FileResult(File file) {
-//		this.fileName = fileName;
-//	}
+	public void printResult(ImageFile imgFile) {
+		printResult(imgFile.getPixels(), PRINTMODE_DEFAULT);
+	}
 	
 	public void printResult(int[][] result) {
 		printResult(result, PRINTMODE_DEFAULT);
+	}
+	
+	public void printResult(ImageFile imgFile, int printMode) {
+		printResult(imgFile.getPixels(), printMode);
 	}
 	
 	public void printResult(int[][] result, int printMode) {
