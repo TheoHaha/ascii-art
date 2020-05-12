@@ -32,6 +32,19 @@ public class ImageFile {
 		}
 	}
 	
+	public ImageFile(File file) {
+		try {
+			this.imgFile = file;
+			this.img = ImageIO.read(this.imgFile);
+			
+			this.height = img.getHeight();
+			this.width = img.getWidth();
+		} catch(IOException e) {
+			System.out.println("An error has occured");
+			e.printStackTrace();
+		}
+	}
+	
 	public ImageFile(String filename, double scale) {
 		
 		try {

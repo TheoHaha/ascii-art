@@ -3,6 +3,8 @@ package image_to_ASCII;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
+import java.io.File;
+//import java.io.File;
 
 public class FileResult {
 	
@@ -11,12 +13,20 @@ public class FileResult {
 	public static final int PRINTMODE_WHITESPACES = 2;
 	public static final int PRINTMODE_BRIGHTMAP = 3;
 	
-	private String fileName;
+	private File file;
 	private BufferedWriter writer;
 	
 	public FileResult(String fileName) {
-		this.fileName = fileName;
+		this.file = new File(fileName);
 	}
+	
+	public FileResult(File file) {
+		this.file = file;
+	}
+	
+//	public FileResult(File file) {
+//		this.fileName = fileName;
+//	}
 	
 	public void printResult(int[][] result) {
 		printResult(result, PRINTMODE_DEFAULT);
@@ -29,7 +39,7 @@ public class FileResult {
 		
 		try {
 			// thanks https://www.baeldung.com/java-write-to-file
-			this.writer = new BufferedWriter(new FileWriter(this.fileName));
+			this.writer = new BufferedWriter(new FileWriter(this.file));
 			this.writer.write("");
 			
 			for(int i=0; i < result.length ; i++ ) {

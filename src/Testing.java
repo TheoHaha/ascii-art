@@ -3,22 +3,28 @@
 
 import image_to_ASCII.*;
 
-public class Testing {
+import java.io.File;
 
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+
+public class Testing {
+	
 	public static void main(String[] args) {
+		//TODO: Implement a JFileChooser that opens and make it work with ImageFile
+		//TODO: Implement a JFileChooser that saves and make it work with FileResult
 		
-		ImageFile image1 = new ImageFile("resources/images/pogchamp.jpg");
-		ImageFile image2 = new ImageFile("resources/images/pogchamp-sm.jpg", 2);
+		final JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(new JPanel());
 		
-		int[][] pix1 = image1.getPixels();
-		int[][] pix2 = image2.getPixels();
+		File file = fc.getSelectedFile();
 		
-		image1.showInfo();
-		FileResult n1 = new FileResult("resources/results/test-1.txt");
-		n1.printResult(pix1, FileResult.PRINTMODE_INVERTED);
+		ImageFile image1 = new ImageFile(file);
+		System.out.println(image1.getFileName());
 		
-		image2.showInfo();
-		FileResult n2 = new FileResult("resources/results/test-2.txt");
-		n2.printResult(pix2, FileResult.PRINTMODE_INVERTED);
+		final JFileChooser fc2 = new JFileChooser();
+		int returnVal2 = fc.showSaveDialog(new JPanel());
+		
+		FileResult result1 = new FileResult(fc2.getSelectedFile());
 	}
 }
