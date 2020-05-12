@@ -52,6 +52,7 @@ public class ImageFile {
 			
 			BufferedImage temp = ImageIO.read(this.imgFile);
 			this.img = resize(temp, scale);
+			
 			if(scale != 1)
 				this.resized = true;
 			
@@ -61,6 +62,29 @@ public class ImageFile {
 			System.out.println("An error has occured");
 			e.printStackTrace();
 		}
+	}
+	
+	public ImageFile(File file, double scale) {
+		
+		try {
+			this.imgFile = file;
+			
+			BufferedImage temp = ImageIO.read(this.imgFile);
+			this.img = resize(temp, scale);
+			
+			if(scale != 1)
+				this.resized = true;
+			
+			this.height = this.img.getHeight();
+			this.width = this.img.getWidth();
+		} catch(IOException e) {
+			System.out.println("An error has occured");
+			e.printStackTrace();
+		}
+	}
+
+	public ImageFile scale(double scale) {
+		return new ImageFile(this.imgFile, scale);
 	}
 
 	public int getHeight() {

@@ -6,8 +6,6 @@ import image_to_ASCII.*;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Testing {
@@ -23,12 +21,11 @@ public class Testing {
 			fc.addChoosableFileFilter(new FileNameExtensionFilter("."+s, s));
 		}
 		
-		@SuppressWarnings("unused")
 		int returnVal = fc.showOpenDialog(new JPanel());
 		
 		File file;
 		
-		if(fc.getSelectedFile() != null) {
+		if(fc.getSelectedFile() != null && returnVal == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
 			
 			ImageFile image1 = new ImageFile(file);
@@ -38,9 +35,11 @@ public class Testing {
 			fc.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
 			returnVal = fc.showSaveDialog(new JPanel());
 			
-			if(fc.getSelectedFile() != null) {
-				FileResult result1 = new FileResult(fc.getSelectedFile());
-				result1.printResult(image1);
+			if(fc.getSelectedFile() != null && returnVal == JFileChooser.APPROVE_OPTION) {
+				file = fc.getSelectedFile();
+				
+				FileResult result1 = new FileResult(file.getPath()+".txt");
+				result1.printResult(image1.scale(0.5));
 			}
 		}
 	}
