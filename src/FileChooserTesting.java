@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JButton;
 
@@ -33,6 +34,14 @@ public class FileChooserTesting {
 	private static final String[] tifExts = { "tif","tiff" };
 	
 	public static void main(String[] args) {
+		// set the look and feel (VERY important)
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		
+		// initialize the frame
 		JFrame frame = new JFrame();
 		frame.setBounds(0, 0, 275, 100);
 		frame.setLayout(new FlowLayout());
