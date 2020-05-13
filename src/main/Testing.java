@@ -1,3 +1,4 @@
+package main;
 // Project idea and walkthrough by https://robertheaton.com/2018/06/12/programming-projects-for-advanced-beginners-ascii-art/ (great guy)
 // TODO: Expand upon the project, GUI(?)
 
