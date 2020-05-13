@@ -1,5 +1,6 @@
 // Project idea and walkthrough by https://robertheaton.com/2018/06/12/programming-projects-for-advanced-beginners-ascii-art/ (great guy)
 // TODO: Expand upon the project, GUI(?)
+package main;
 
 import image_to_ASCII.*;
 
@@ -46,6 +47,7 @@ public class FileChooserTesting {
 		frame.setBounds(0, 0, 275, 100);
 		frame.setLayout(new FlowLayout());
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// the load button and its functionality
 		loadBtn = new JButton("Load...");
@@ -120,7 +122,7 @@ public class FileChooserTesting {
 			selectedImg = new ImageFile(fc.getSelectedFile());
 		}
 	}
-	
+
 	// save the result as a .txt file with a SaveDialog
 	public static void saveResult(ImageFile image) {
 		// initialize the file chooser and create an ImageFile
@@ -135,7 +137,7 @@ public class FileChooserTesting {
 		
 		// save the result to the specified .txt file
 		if(fc.getSelectedFile() != null && returnVal == JFileChooser.APPROVE_OPTION) {
-			FileResult result1 = new FileResult(fc.getSelectedFile().getPath()+".txt");				
+			ResultFile result1 = new ResultFile(fc.getSelectedFile().getPath()+".txt");				
 			result1.printResult(image.scale(0.5));
 		}
 	}
