@@ -1,8 +1,10 @@
 // Project idea and walkthrough by https://robertheaton.com/2018/06/12/programming-projects-for-advanced-beginners-ascii-art/ (great guy)
 // TODO: Expand upon the project, GUI(?)
+package main;
 
 import image_to_ASCII.*;
 
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,32 +12,60 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JButton;
 
-public class Testing {
+public class FileChooserTesting {
 	
 	// all the GUI elements
-	private static JFileChooser fc;
-	private static JButton loadBtn;
-	private static JButton saveBtn;
-	private static JButton unloadBtn;
-	private static JLabel fileLabel;
+	private JFrame frame;
+	private JFileChooser fc;
+	private JButton loadBtn;
+	private JButton saveBtn;
+	private JButton unloadBtn;
+	private JLabel fileLabel;
 	
 	// stores the file that we've loaded using the JFileChooser
-	private static ImageFile selectedImg = null;
+	private ImageFile selectedImg = null;
 	
 	// all supported image extensions, can easily add more
 	private static final String[] imageExts = {
 		"gif","jpeg","jpg","png","tif","tiff"
 	};
+	private static final String[] jpgExts = { "jpeg","jpg" };
+	private static final String[] tifExts = { "tif","tiff" };
 	
 	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setBounds(0, 0, 275, 100);
+		// set the look and feel (VERY important)
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FileChooserTesting window = new FileChooserTesting();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public FileChooserTesting() {
+		initialize();
+	}
+	
+	private void initialize() {
+		// initialize the frame
+		frame = new JFrame();
+		frame.setBounds(100, 100, 275, 100);
 		frame.setLayout(new FlowLayout());
-		frame.setVisible(true);
-		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		// the load button and its functionality
 		loadBtn = new JButton("Load...");
 		loadBtn.addActionListener(new ActionListener() {
@@ -48,7 +78,7 @@ public class Testing {
 				}
 			}
 		});
-		
+
 		// the save button and its functionality
 		saveBtn = new JButton("Save...");
 		saveBtn.setEnabled(false);
@@ -59,7 +89,7 @@ public class Testing {
 				saveResult(selectedImg);
 			}
 		});
-		
+
 		// the unload button and its functionality
 		unloadBtn = new JButton("Unload");
 		unloadBtn.addActionListener(new ActionListener() {
@@ -68,10 +98,10 @@ public class Testing {
 				unloadImage();
 			}
 		});
-		
-		// a label that showcases whether we have loaded a file or not
-		fileLabel = new JLabel("Loaded file: <none>");
-		
+
+		// a label that shows whether we have loaded a file or not
+		fileLabel = new JLabel("Loaded image: <none>");
+
 		// add everything to the frame
 		frame.add(loadBtn);
 		frame.add(saveBtn);
@@ -80,7 +110,7 @@ public class Testing {
 	}
 	
 	// load the image with an OpenDialog
-	public static void loadImage() {
+	private void loadImage() {
 		// initialize the file chooser
 		fc = new JFileChooser();
 		
@@ -88,13 +118,16 @@ public class Testing {
 		fc.resetChoosableFileFilters();
 		String s = "";
 		for(String ext : imageExts) {
-			fc.addChoosableFileFilter(new FileNameExtensionFilter(ext.toUpperCase(), ext));
 			if (ext != imageExts[imageExts.length - 1]) {
 				s += "."+ext+", ";
 			} else {
 				s += "."+ext;
 			}
 		}
+		fc.addChoosableFileFilter(new FileNameExtensionFilter("GIF", "gif"));
+		fc.addChoosableFileFilter(new FileNameExtensionFilter("JPEG, JPG", jpgExts));
+		fc.addChoosableFileFilter(new FileNameExtensionFilter("PNG", "png"));
+		fc.addChoosableFileFilter(new FileNameExtensionFilter("TIFF, TIF", tifExts));
 		fc.setFileFilter(new FileNameExtensionFilter("Images ("+s+")", imageExts));
 		
 		// open up the load window
@@ -105,9 +138,9 @@ public class Testing {
 			selectedImg = new ImageFile(fc.getSelectedFile());
 		}
 	}
-	
+
 	// save the result as a .txt file with a SaveDialog
-	public static void saveResult(ImageFile image) {
+	private void saveResult(ImageFile image) {
 		// initialize the file chooser and create an ImageFile
 		fc = new JFileChooser();
 		
@@ -120,14 +153,13 @@ public class Testing {
 		
 		// save the result to the specified .txt file
 		if(fc.getSelectedFile() != null && returnVal == JFileChooser.APPROVE_OPTION) {
-			FileResult result1 = new FileResult(fc.getSelectedFile().getPath()+".txt");				
+			ResultFile result1 = new ResultFile(fc.getSelectedFile().getPath()+".txt");				
 			result1.printResult(image.scale(0.5));
 		}
-	
 	}
 	
 	// unload any currently loaded image
-	public static void unloadImage() {
+	private void unloadImage() {
 		// check if we got an image loaded, can't unload if we haven't loaded
 		if(selectedImg != null) {
 			selectedImg = null;

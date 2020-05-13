@@ -6,7 +6,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 //import java.io.File;
 
-public class FileResult {
+public class ResultFile {
 	
 	public static final int PRINTMODE_DEFAULT = 0;
 	public static final int PRINTMODE_INVERTED = 1;
@@ -16,11 +16,11 @@ public class FileResult {
 	private File file;
 	private BufferedWriter writer;
 	
-	public FileResult(String fileName) {
+	public ResultFile(String fileName) {
 		this.file = new File(fileName);
 	}
 	
-	public FileResult(File file) {
+	public ResultFile(File file) {
 		this.file = file;
 	}
 	
@@ -44,7 +44,7 @@ public class FileResult {
 		try {
 			// thanks https://www.baeldung.com/java-write-to-file
 			this.writer = new BufferedWriter(new FileWriter(this.file));
-			this.writer.write("");
+			this.writer.write("zoom out to see the full picture!\nimage scaled by ...something");
 			
 			for(int i=0; i < result.length ; i++ ) {
 				for(int j=0; j < result[0].length ; j++) {

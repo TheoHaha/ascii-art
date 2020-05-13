@@ -17,7 +17,7 @@ public class ImageFile {
 	
 	private int height;
 	private int width;
-	private boolean resized = false;
+	private double scale = 1;
 
 	public ImageFile(String filename) {
 		try {
@@ -53,9 +53,7 @@ public class ImageFile {
 			BufferedImage temp = ImageIO.read(this.imgFile);
 			this.img = resize(temp, scale);
 			
-			if(scale != 1)
-				this.resized = true;
-			
+			this.scale = scale;
 			this.height = this.img.getHeight();
 			this.width = this.img.getWidth();
 		} catch(IOException e) {
@@ -72,9 +70,7 @@ public class ImageFile {
 			BufferedImage temp = ImageIO.read(this.imgFile);
 			this.img = resize(temp, scale);
 			
-			if(scale != 1)
-				this.resized = true;
-			
+			this.scale = scale;
 			this.height = this.img.getHeight();
 			this.width = this.img.getWidth();
 		} catch(IOException e) {
@@ -95,12 +91,16 @@ public class ImageFile {
 		return width;
 	}
 	
+	public double getScale() {
+		return scale;
+	}
+	
 	public String getFileName() {
 		return imgFile.getName();
 	}
 	
 	public void showInfo() {
-		System.out.println("File name: "+this.getFileName()+"\nHeight: "+this.height+"\nWidth: "+this.width+"\nResized: "+this.resized);
+		System.out.println("File name: "+this.getFileName()+"\nHeight: "+this.height+"\nWidth: "+this.width+"\nResized: "+this.scale);
 	}
 	
 	// adapted from https://stackoverflow.com/questions/6524196/java-get-pixel-array-from-image
