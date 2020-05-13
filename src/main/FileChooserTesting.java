@@ -4,6 +4,7 @@ package main;
 
 import image_to_ASCII.*;
 
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,14 +19,15 @@ import javax.swing.JButton;
 public class FileChooserTesting {
 	
 	// all the GUI elements
-	private static JFileChooser fc;
-	private static JButton loadBtn;
-	private static JButton saveBtn;
-	private static JButton unloadBtn;
-	private static JLabel fileLabel;
+	private JFrame frame;
+	private JFileChooser fc;
+	private JButton loadBtn;
+	private JButton saveBtn;
+	private JButton unloadBtn;
+	private JLabel fileLabel;
 	
 	// stores the file that we've loaded using the JFileChooser
-	private static ImageFile selectedImg = null;
+	private ImageFile selectedImg = null;
 	
 	// all supported image extensions, can easily add more
 	private static final String[] imageExts = {
@@ -41,14 +43,29 @@ public class FileChooserTesting {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FileChooserTesting window = new FileChooserTesting();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public FileChooserTesting() {
+		initialize();
+	}
+	
+	private void initialize() {
 		// initialize the frame
-		JFrame frame = new JFrame();
-		frame.setBounds(0, 0, 275, 100);
+		frame = new JFrame();
+		frame.setBounds(100, 100, 275, 100);
 		frame.setLayout(new FlowLayout());
-		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		// the load button and its functionality
 		loadBtn = new JButton("Load...");
 		loadBtn.addActionListener(new ActionListener() {
@@ -61,7 +78,7 @@ public class FileChooserTesting {
 				}
 			}
 		});
-		
+
 		// the save button and its functionality
 		saveBtn = new JButton("Save...");
 		saveBtn.setEnabled(false);
@@ -72,7 +89,7 @@ public class FileChooserTesting {
 				saveResult(selectedImg);
 			}
 		});
-		
+
 		// the unload button and its functionality
 		unloadBtn = new JButton("Unload");
 		unloadBtn.addActionListener(new ActionListener() {
@@ -81,10 +98,10 @@ public class FileChooserTesting {
 				unloadImage();
 			}
 		});
-		
+
 		// a label that shows whether we have loaded a file or not
-		fileLabel = new JLabel("Loaded file: <none>");
-		
+		fileLabel = new JLabel("Loaded image: <none>");
+
 		// add everything to the frame
 		frame.add(loadBtn);
 		frame.add(saveBtn);
@@ -93,7 +110,7 @@ public class FileChooserTesting {
 	}
 	
 	// load the image with an OpenDialog
-	public static void loadImage() {
+	private void loadImage() {
 		// initialize the file chooser
 		fc = new JFileChooser();
 		
@@ -101,7 +118,6 @@ public class FileChooserTesting {
 		fc.resetChoosableFileFilters();
 		String s = "";
 		for(String ext : imageExts) {
-			//fc.addChoosableFileFilter(new FileNameExtensionFilter(ext.toUpperCase(), ext));
 			if (ext != imageExts[imageExts.length - 1]) {
 				s += "."+ext+", ";
 			} else {
@@ -124,7 +140,7 @@ public class FileChooserTesting {
 	}
 
 	// save the result as a .txt file with a SaveDialog
-	public static void saveResult(ImageFile image) {
+	private void saveResult(ImageFile image) {
 		// initialize the file chooser and create an ImageFile
 		fc = new JFileChooser();
 		
@@ -143,7 +159,7 @@ public class FileChooserTesting {
 	}
 	
 	// unload any currently loaded image
-	public static void unloadImage() {
+	private void unloadImage() {
 		// check if we got an image loaded, can't unload if we haven't loaded
 		if(selectedImg != null) {
 			selectedImg = null;
