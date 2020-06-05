@@ -20,5 +20,7 @@ public class Testing {
 		image2.showInfo();
 		FileResult n2 = new FileResult("resources/results/test-2.txt");
 		n2.printResult(pix2, FileResult.PRINTMODE_INVERTED);
+		
+		System.out.println("Hello World");
 	}
 }
