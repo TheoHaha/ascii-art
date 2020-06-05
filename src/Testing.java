@@ -22,5 +22,6 @@ public class Testing {
 		n2.printResult(pix2, FileResult.PRINTMODE_INVERTED);
 		
 		System.out.println("Hello World");
+		System.out.println("Hello World");
 	}
 }
