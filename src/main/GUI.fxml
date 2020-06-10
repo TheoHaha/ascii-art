@@ -18,8 +18,8 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
          <children>
-            <TextField fx:id="browseTxtField" prefHeight="25.0" prefWidth="300.0" />
-            <Button fx:id="browseBtn" mnemonicParsing="false" text="Browse..." />
+            <TextField fx:id="loadTxtField" editable="false" prefHeight="25.0" prefWidth="300.0" />
+            <Button fx:id="loadBtn" mnemonicParsing="false" onAction="#loadImage" text="Browse..." />
             <Label prefHeight="25.0" text="Scale:">
                <HBox.margin>
                   <Insets left="13.0" />
@@ -37,12 +37,12 @@
          </padding>
          <children>
             <Label prefHeight="25.0" text="Mode:" />
-            <RadioButton fx:id="defaultRadio" mnemonicParsing="false" prefHeight="25.0" selected="true" text="Default">
+            <RadioButton fx:id="defaultRadio" mnemonicParsing="false" onAction="#setDefaultMode" prefHeight="25.0" selected="true" text="Default">
                <toggleGroup>
                   <ToggleGroup fx:id="modeGroup" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="invertedRadio" mnemonicParsing="false" prefHeight="25.0" text="Inverted" toggleGroup="$modeGroup" />
-            <RadioButton fx:id="whitespacesRadio" mnemonicParsing="false" prefHeight="25.0" text="Whitespaces" toggleGroup="$modeGroup" />
+            <RadioButton fx:id="invertedRadio" mnemonicParsing="false" onAction="#setInvertedMode" prefHeight="25.0" text="Inverted" toggleGroup="$modeGroup" />
+            <RadioButton fx:id="whitespacesRadio" mnemonicParsing="false" onAction="#setWhitespacesMode" prefHeight="25.0" text="Whitespaces" toggleGroup="$modeGroup" />
          </children>
       </HBox>
       <VBox layoutX="15.0" layoutY="95.0" prefHeight="108.0" prefWidth="470.0" spacing="15.0" style="-fx-border-style: solid;">
@@ -56,6 +56,6 @@
             <Label fx:id="heightLabel" text="Height:" />
          </children>
       </VBox>
-      <Button fx:id="convertBtn" layoutX="15.0" layoutY="240.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="470.0" text="Convert to ASCII..." />
+      <Button fx:id="saveBtn" layoutX="15.0" layoutY="240.0" mnemonicParsing="false" onAction="#saveAsTxt" prefHeight="25.0" prefWidth="470.0" text="Convert to ASCII..." />
    </children>
 </AnchorPane>
