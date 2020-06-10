@@ -37,12 +37,12 @@
          </padding>
          <children>
             <Label prefHeight="25.0" text="Mode:" />
-            <RadioButton fx:id="defaultRadio" mnemonicParsing="false" onAction="#setDefaultMode" prefHeight="25.0" selected="true" text="Default">
+            <RadioButton fx:id="defaultRadio" mnemonicParsing="false" prefHeight="25.0" selected="true" text="Default">
                <toggleGroup>
                   <ToggleGroup fx:id="modeGroup" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="invertedRadio" mnemonicParsing="false" onAction="#setInvertedMode" prefHeight="25.0" text="Inverted" toggleGroup="$modeGroup" />
-            <RadioButton fx:id="whitespacesRadio" mnemonicParsing="false" onAction="#setWhitespacesMode" prefHeight="25.0" text="Whitespaces" toggleGroup="$modeGroup" />
+            <RadioButton fx:id="invertedRadio" mnemonicParsing="false" prefHeight="25.0" text="Inverted" toggleGroup="$modeGroup" />
+            <RadioButton fx:id="whitespacesRadio" mnemonicParsing="false" prefHeight="25.0" text="Whitespaces" toggleGroup="$modeGroup" />
          </children>
       </HBox>
       <VBox layoutX="15.0" layoutY="95.0" prefHeight="108.0" prefWidth="470.0" spacing="15.0" style="-fx-border-style: solid;">

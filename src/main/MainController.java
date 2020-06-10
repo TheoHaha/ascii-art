@@ -17,6 +17,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import image_to_ASCII.*;
 
 public class MainController {
+	// TODO: Dialog boxes for confirmation and errors
 	
 	@FXML private TextField loadTxtField;
 	@FXML private Button loadBtn;
@@ -35,15 +36,14 @@ public class MainController {
 	
 	@FXML private Button saveBtn;
 	
-	private File selectedFile;
-	private File resultFile;
+	private File loadedFile;
+	private File savedFile;
 	private double scale;
 	private int printmode;
 
 
 	public void initialize() {
 		scaleSpinner.setValueFactory(svf);
-		
 	}
 	
 	public void loadImage(ActionEvent event) {
@@ -53,14 +53,12 @@ public class MainController {
 				new ExtensionFilter("PNG files", "*.png"),
 				new ExtensionFilter("JPG files", "*.jpg"),
 				new ExtensionFilter("TIF files", "*.tif"));
-		selectedFile = loadFC.showOpenDialog(null);
+		loadedFile = loadFC.showOpenDialog(null);
 		
-		if(selectedFile != null) {
-
-			ImageFile selectedImage = new ImageFile(selectedFile);
-			selectedImage.showInfo();
+		if (loadedFile != null) {
+			ImageFile selectedImage = new ImageFile(loadedFile);
 			
-			loadTxtField.setText(selectedFile.getAbsolutePath());
+			loadTxtField.setText(selectedImage.getFile().getAbsolutePath());
 			
 			filenameLabel.setText("Filename: "+selectedImage.getFile().getName());
 			widthLabel.setText("Width: "+selectedImage.getWidth());
@@ -69,34 +67,32 @@ public class MainController {
 	}
 	
 	public void saveAsTxt(ActionEvent event) {
-		FileChooser saveFC = new FileChooser();
+		if (loadedFile != null) {
+			FileChooser saveFC = new FileChooser();
+			saveFC.getExtensionFilters().addAll(new ExtensionFilter("Text File", "*.txt"));
 
-		scale = scaleSpinner.getValue();
-		
-		if (defaultRadio.isSelected()) {
-			printmode = ResultFile.PRINTMODE_DEFAULT;
-			System.out.println("default mode");
-		} else if (invertedRadio.isSelected()) {
-			printmode = ResultFile.PRINTMODE_INVERTED;
-			System.out.println("default mode");
-		} else if (whitespacesRadio.isSelected()) {
-			printmode = ResultFile.PRINTMODE_WHITESPACES;
-			System.out.println("whitespace mode");
+			scale = scaleSpinner.getValue();
+			
+			if (defaultRadio.isSelected()) {
+				printmode = ResultFile.PRINTMODE_DEFAULT;
+			} else if (invertedRadio.isSelected()) {
+				printmode = ResultFile.PRINTMODE_INVERTED;
+			} else if (whitespacesRadio.isSelected()) {
+				printmode = ResultFile.PRINTMODE_WHITESPACES;
+			}
+			
+			ImageFile imageFile = new ImageFile(loadedFile, scale);
+			
+			savedFile = saveFC.showSaveDialog(null);
+			
+			if (savedFile != null) {
+				ResultFile resultFile = new ResultFile(imageFile, savedFile);
+				resultFile.printResult(printmode);
+				
+				System.out.println("Saved successfully at "+savedFile.getAbsolutePath());
+			}
+		} else {
+			System.out.println("Please load a file first!");
 		}
-	}
-	
-	public void setDefaultMode(ActionEvent event) {
-		printmode = ResultFile.PRINTMODE_DEFAULT;
-		System.out.println("default mode");
-	}
-	
-	public void setInvertedMode(ActionEvent event) {
-		printmode = ResultFile.PRINTMODE_INVERTED;
-		System.out.println("inverto mode");
-	}
-	
-	public void setWhitespacesMode(ActionEvent event) {
-		printmode = ResultFile.PRINTMODE_WHITESPACES;
-		System.out.println("whitespace mode");
 	}
 }
