@@ -3,19 +3,43 @@ package image_to_ASCII;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
+import java.io.File;
 
-public class FileResult {
+public class ResultFile {
 	
 	public static final int PRINTMODE_DEFAULT = 0;
 	public static final int PRINTMODE_INVERTED = 1;
 	public static final int PRINTMODE_WHITESPACES = 2;
 	public static final int PRINTMODE_BRIGHTMAP = 3;
 	
-	private String fileName;
+	private ImageFile imgInput;
+	private File txtOutput;
 	private BufferedWriter writer;
 	
-	public FileResult(String fileName) {
-		this.fileName = fileName;
+	public ResultFile(File txtOutput) {
+		this.txtOutput = txtOutput;
+	}
+	
+	public ResultFile(String txtOutputFileName) {
+		this.txtOutput = new File(txtOutputFileName);
+	}
+	
+	public ResultFile(ImageFile imgInput, File txtOutput) {
+		this.imgInput = imgInput;
+		this.txtOutput = txtOutput;
+	}
+	
+	public void printResult() {
+		printResult(imgInput.getPixels());
+	}
+	
+	public void printResult(int printMode) {
+		printResult(imgInput.getPixels(), printMode);
+	}
+	
+	public void printResult(int printMode, double scale) {
+		ImageFile scaledInput = new ImageFile(this.imgInput.getFile(), scale);
+		printResult(scaledInput.getPixels(), printMode);
 	}
 	
 	public void printResult(int[][] result) {
@@ -23,13 +47,12 @@ public class FileResult {
 	}
 	
 	public void printResult(int[][] result, int printMode) {
-		
 		// ASCII art palette
 		//System.out.println("`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$");
 		
 		try {
 			// thanks https://www.baeldung.com/java-write-to-file
-			this.writer = new BufferedWriter(new FileWriter(this.fileName));
+			this.writer = new BufferedWriter(new FileWriter(this.txtOutput));
 			this.writer.write("");
 			
 			for(int i=0; i < result.length ; i++ ) {

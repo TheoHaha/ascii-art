@@ -17,6 +17,8 @@ public class ImageFile {
 	
 	private int height;
 	private int width;
+	
+	private double scale = 1;
 	private boolean resized = false;
 
 	public ImageFile(String filename) {
@@ -36,6 +38,39 @@ public class ImageFile {
 		
 		try {
 			this.imgFile = new File(filename);
+			this.scale = scale;
+			
+			BufferedImage temp = ImageIO.read(this.imgFile);
+			this.img = resize(temp, scale);
+			if(scale != 1)
+				this.resized = true;
+			
+			this.height = this.img.getHeight();
+			this.width = this.img.getWidth();
+		} catch(IOException e) {
+			System.out.println("An error has occured");
+			e.printStackTrace();
+		}
+	}
+	
+	public ImageFile(File imgFile) {
+		try {
+			this.imgFile = imgFile;
+			this.img = ImageIO.read(this.imgFile);
+			
+			this.height = img.getHeight();
+			this.width = img.getWidth();
+		} catch(IOException e) {
+			System.out.println("An error has occured");
+			e.printStackTrace();
+		}
+	}
+	
+	public ImageFile(File imgFile, double scale) {
+		
+		try {
+			this.imgFile = imgFile;
+			this.scale = scale;
 			
 			BufferedImage temp = ImageIO.read(this.imgFile);
 			this.img = resize(temp, scale);
@@ -58,12 +93,18 @@ public class ImageFile {
 		return width;
 	}
 	
-	public String getFileName() {
-		return imgFile.getName();
+	public File getFile() {
+		return imgFile;
 	}
 	
+	// for debug purposes
 	public void showInfo() {
-		System.out.println("File name: "+this.getFileName()+"\nHeight: "+this.height+"\nWidth: "+this.width+"\nResized: "+this.resized);
+		System.out.println(
+				"File name: "+this.getFile().getName()+ 
+				"\nHeight: "+this.height+ 
+				"\nWidth: "+this.width+ 
+				"\nScale: "+this.scale+ 
+				"\nResized: "+this.resized);
 	}
 	
 	// adapted from https://stackoverflow.com/questions/6524196/java-get-pixel-array-from-image
