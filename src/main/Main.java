@@ -12,14 +12,16 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
+			// make a parent out of the fxml file that we created from scene builder
 			Parent root = FXMLLoader.load(getClass().getResource("/main/GUI.fxml"));
 			
+			// make a scene out of the parent
 			Scene scene = new Scene(root);
 			
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Convert to ASCII");
-			primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
-			primaryStage.setResizable(false);
+			primaryStage.setScene(scene); // set the stage scene
+			primaryStage.setTitle("Convert to ASCII"); // set window title
+			primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png"))); // set window icon
+			primaryStage.setResizable(false); // do not let the user resize the window
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
