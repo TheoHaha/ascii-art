@@ -53,7 +53,7 @@ public class ResultFile {
 		try {
 			// thanks https://www.baeldung.com/java-write-to-file
 			this.writer = new BufferedWriter(new FileWriter(this.txtOutput));
-			this.writer.write("");
+			this.writer.write("zoom out to see the full picture!\n");
 			
 			for(int i=0; i < result.length ; i++ ) {
 				for(int j=0; j < result[0].length ; j++) {
@@ -78,7 +78,7 @@ public class ResultFile {
 			System.out.println("An error has occured");
 			e.printStackTrace();
 		}
-		System.out.println("job's done"); // message to confirm that the job is done
+		//System.out.println("job's done"); // message to confirm that the job is done
 	}
 	
 	private void print_default(int brightValue) {
