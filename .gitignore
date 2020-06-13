@@ -1,6 +1,7 @@
 .metadata
 bin/
 tmp/
+jre/
 *.tmp
 *.bak
 *.swp
