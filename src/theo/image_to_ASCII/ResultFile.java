@@ -1,4 +1,4 @@
-package image_to_ASCII;
+package theo.image_to_ASCII;
 
 import java.io.FileWriter;
 import java.io.IOException;

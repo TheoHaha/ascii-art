@@ -1,4 +1,4 @@
-package main;
+package theo.main;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -17,8 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-
-import image_to_ASCII.*;
+import theo.image_to_ASCII.*;
 
 public class MainController {
 
