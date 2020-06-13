@@ -1,4 +1,4 @@
-package main;
+package theo.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			// make a parent out of the fxml file that we created from scene builder
-			Parent root = FXMLLoader.load(getClass().getResource("/main/GUI.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/theo/main/GUI.fxml"));
 			
 			// make a scene out of the parent
 			Scene scene = new Scene(root);
