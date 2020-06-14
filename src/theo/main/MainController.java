@@ -77,9 +77,9 @@ public class MainController {
 		// since we're using one file chooser to handle multiple functions, we need to clear the extension filters beforehand
 		fc.getExtensionFilters().clear();
 		fc.getExtensionFilters().addAll(
-				new ExtensionFilter("Images", "*.png", "*.jpg", "*.tif"),
+				new ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.tif"),
 				new ExtensionFilter("PNG files", "*.png"),
-				new ExtensionFilter("JPG files", "*.jpg"),
+				new ExtensionFilter("JPG files", "*.jpg", "*.jpeg"),
 				new ExtensionFilter("TIF files", "*.tif"));
 		
 		// open the file chooser as an 'open' dialog and set the chosen file as our loaded file
